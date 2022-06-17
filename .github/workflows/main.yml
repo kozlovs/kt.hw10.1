@@ -21,7 +21,3 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build --info
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
