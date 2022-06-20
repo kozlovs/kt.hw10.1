@@ -14,7 +14,7 @@ data class Comment(
     val parentsStack: Array<Comment> = emptyArray(),
     val text: String = "",
     val id: Long = 0,
-    var isDelete: Boolean = false,
+    var isDeleted: Boolean = false,
     val date: LocalDate = LocalDate.now()
 ) {
     override fun equals(other: Any?): Boolean {

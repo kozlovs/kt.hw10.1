@@ -1,5 +1,6 @@
 package post
 
+import IdGenerator
 import comment.Comment
 import comment.ReportComment
 import exceptions.*
@@ -8,7 +9,7 @@ object WallService {
     private var posts = emptyArray<Post>()
     private var comments = emptyArray<Comment>()
     private var reports = emptyArray<ReportComment>()
-    private var lastId = 0L
+    private var idGenerator = IdGenerator()
 
     fun createComment(postId: Long, comment: Comment): Comment {
         for (post in posts) {
@@ -37,7 +38,7 @@ object WallService {
     }
 
     fun add(post: Post): Post {
-        posts += post.copy(id = getId())
+        posts += post.copy(id = idGenerator.getId())
         return posts.last()
     }
 
@@ -53,10 +54,5 @@ object WallService {
             }
         }
         return false
-    }
-
-    private fun getId(): Long {
-        lastId += 1
-        return lastId
     }
 }

@@ -1,9 +1,10 @@
-package note
+package chat
 
 import comment.Comment
 import java.time.LocalDate
 
-data class Note(
+data class Chat(
+    val massage: Massage,
     val ownerId: Long,
     val title: String,
     val text: String,
@@ -15,4 +16,9 @@ data class Note(
     val date: LocalDate = LocalDate.now(),
     var isDeleted: Boolean = false,
     var comments: MutableList<Comment> = mutableListOf<Comment>()
-)
+) {
+    var massages = mutableListOf(massage)
+    // TODO: 20.06.2022 дописать
+ //   infix fun Mto()
+// to
+}

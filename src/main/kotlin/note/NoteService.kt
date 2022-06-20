@@ -1,21 +1,22 @@
 package note
 
+import IdGenerator
 import comment.Comment
 import comment.CommentService
 import exceptions.*
 
 object NoteService {
     private var notes = mutableListOf<Note>()
-    private var lastId = 0L
+    private var idGenerator = IdGenerator()
 
     fun add(note: Note): Note {
-        notes += note.copy(id = getId())
+        notes += note.copy(id = idGenerator.getId())
         return notes.last()
     } //Создает новую заметку у текущего пользователя.
 
     fun createComment(noteId: Long, comment: Comment): Comment {
         for (note in notes) {
-            if (note.id == noteId && !note.isDelete) {
+            if (note.id == noteId && !note.isDeleted) {
                 note.comments += comment.copy(id = CommentService.getId())
                 return note.comments.last()
             }
@@ -25,8 +26,8 @@ object NoteService {
 
     fun delete(noteId: Long): Boolean {
         for (note in notes) {
-            if (note.id == noteId && !note.isDelete) {
-                note.isDelete = true
+            if (note.id == noteId && !note.isDeleted) {
+                note.isDeleted = true
                 return true
             }
         }
@@ -35,10 +36,10 @@ object NoteService {
 
     fun deleteComment(noteId: Long, commentId: Long): Boolean {
         for (note in notes) {
-            if (note.id == noteId && !note.isDelete) {
+            if (note.id == noteId && !note.isDeleted) {
                 for (comment in note.comments) {
-                    if (comment.id == commentId && !comment.isDelete) {
-                        comment.isDelete = true
+                    if (comment.id == commentId && !comment.isDeleted) {
+                        comment.isDeleted = true
                         return true
                     }
                 }
@@ -50,7 +51,7 @@ object NoteService {
 
     fun edit(noteId: Long, note: Note): Boolean {
         for ((index, thisNote) in notes.withIndex()) {
-            if (thisNote.id == noteId && !thisNote.isDelete) {
+            if (thisNote.id == noteId && !thisNote.isDeleted) {
                 notes[index] = note.copy(
                     id = thisNote.id,
                     ownerId = thisNote.ownerId,
@@ -64,9 +65,9 @@ object NoteService {
 
     fun editComment(noteId: Long, commentId: Long, comment: Comment): Boolean {
         for (note in notes) {
-            if (note.id == noteId && !note.isDelete) {
+            if (note.id == noteId && !note.isDeleted) {
                 for ((index, thisComment) in note.comments.withIndex()) {
-                    if (thisComment.id == commentId && !comment.isDelete) {
+                    if (thisComment.id == commentId && !comment.isDeleted) {
                         notes[index] = note.copy(
                             id = thisComment.id,
                             ownerId = thisComment.ownerId,
@@ -85,7 +86,7 @@ object NoteService {
 
     fun getById(noteId: Long): Note {
         for (note in notes) {
-            if (note.id == noteId && !note.isDelete)
+            if (note.id == noteId && !note.isDeleted)
                 return note
         }
         throw NoteNotFoundException()
@@ -93,7 +94,7 @@ object NoteService {
 
     fun getComments(noteId: Long): MutableList<Comment> {
         for (note in notes) {
-            if (note.id == noteId && !note.isDelete)
+            if (note.id == noteId && !note.isDeleted)
                 return note.comments
         }
         throw NoteNotFoundException()
@@ -101,10 +102,10 @@ object NoteService {
 
     fun restoreComment(noteId: Long, commentId: Long): Boolean {
         for (note in notes) {
-            if (note.id == noteId && !note.isDelete) {
+            if (note.id == noteId && !note.isDeleted) {
                 for (comment in note.comments) {
-                    if (comment.id == commentId && comment.isDelete) {
-                        comment.isDelete = false
+                    if (comment.id == commentId && comment.isDeleted) {
+                        comment.isDeleted = false
                         return true
                     }
                 }
@@ -113,9 +114,4 @@ object NoteService {
         }
         throw NoteNotFoundException()
     } //Восстанавливает удалённый комментарий.
-
-    private fun getId(): Long {
-        lastId += 1
-        return lastId
-    } // Генерирует id для заметок
 }
