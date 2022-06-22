@@ -4,27 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54ad6df5-e093-4372-8b67-fcbebd65664e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/IdGenerator.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Location.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/chat/Chat.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/chat/ChatService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/chat/Massage.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/exceptions/ChatNotFoundException.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/exceptions/MassageNotFoundException.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/exceptions/UserNotFoundException.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/user/User.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/user/UserService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="54ad6df5-e093-4372-8b67-fcbebd65664e" name="Changes" comment="Chat commit 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/comment/Comment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/comment/Comment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/note/Note.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/note/Note.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/note/NoteService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/note/NoteService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/post/WallService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/post/WallService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/IdGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/IdGenerator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/Chat.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/Chat.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/ChatService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/ChatService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/Massage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/Massage.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,17 +55,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
-    "last_opened_file_path": "C:/Users/kozlo/IdeaProjects/kt.hw9.1",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kozlo/IdeaProjects/kt.hw9.1&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kozlo\IdeaProjects\note_service\src\main\kotlin" />
@@ -240,6 +225,14 @@
       <option name="presentableId" value="Default" />
       <updated>1655290258244</updated>
     </task>
+    <task id="LOCAL-00001" summary="Chat commit 1">
+      <created>1655728955362</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1655728955362</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -252,5 +245,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Chat commit 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chat commit 1" />
   </component>
 </project>

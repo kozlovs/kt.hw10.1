@@ -5,7 +5,8 @@ import java.time.LocalDate
 
 data class Chat(
     val massage: Massage,
-    val ownerId: Long,
+    val ownerId1: Long,
+    val ownerId2: Long,
     val title: String,
     val text: String,
     val privacy: Byte = 0,
