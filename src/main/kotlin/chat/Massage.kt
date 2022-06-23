@@ -1,6 +1,7 @@
 package chat
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class Massage(
     val fromId: Long,
@@ -8,6 +9,6 @@ data class Massage(
     val text: String,
     var isRead: Boolean = false,
     var isEdit: Boolean = false,
-    var id: Long,
-    val date: LocalDate = LocalDate.now()
+    var id: Long = 0L,
+    val date: LocalDateTime = LocalDateTime.now()
 )

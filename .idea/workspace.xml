@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54ad6df5-e093-4372-8b67-fcbebd65664e" name="Changes" comment="Chat commit 1">
+    <list default="true" id="54ad6df5-e093-4372-8b67-fcbebd65664e" name="Changes" comment="Chat commit 2">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/chat/ChatServiceTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/IdGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/IdGenerator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/Chat.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/Chat.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/ChatService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/ChatService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/Massage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/Massage.kt" afterDir="false" />
@@ -34,10 +36,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit4 Test Class" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Object" />
         <option value="Kotlin Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -82,6 +84,7 @@
       <recent name="note" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="chat" />
       <recent name="note" />
       <recent name="post" />
     </key>
@@ -90,8 +93,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.NoteServiceTest">
-    <configuration name="NoteServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.ChatServiceTest">
+    <configuration name="ChatServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -104,7 +107,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;note.NoteServiceTest&quot;" />
+            <option value="&quot;chat.ChatServiceTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -114,7 +117,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="NoteServiceTest.getCommentShodThrow" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ChatServiceTest.getChatNoZero" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -127,7 +130,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;note.NoteServiceTest.getCommentShodThrow&quot;" />
+            <option value="&quot;chat.ChatServiceTest.getChatNoZero&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -137,7 +140,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="NoteServiceTest.restoreCommentNoZero" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ChatServiceTest.getDeletedChatNoZero" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -150,7 +153,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;note.NoteServiceTest.restoreCommentNoZero&quot;" />
+            <option value="&quot;chat.ChatServiceTest.getDeletedChatNoZero&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -160,7 +163,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="NoteServiceTest.restoreCommentShodThrowCommentNotFoundException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ChatServiceTest.getMassagesShouldNotThrowException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -173,7 +176,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;note.NoteServiceTest.restoreCommentShodThrowCommentNotFoundException&quot;" />
+            <option value="&quot;chat.ChatServiceTest.getMassagesShouldNotThrowException&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -183,7 +186,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="NoteServiceTest.restoreCommentShodThrowNoteNotFoundException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ChatServiceTest.getUnreadChatsCountNoZero" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -196,7 +199,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;note.NoteServiceTest.restoreCommentShodThrowNoteNotFoundException&quot;" />
+            <option value="&quot;chat.ChatServiceTest.getUnreadChatsCountNoZero&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -208,11 +211,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.NoteServiceTest" />
-        <item itemvalue="Gradle.NoteServiceTest.restoreCommentShodThrowNoteNotFoundException" />
-        <item itemvalue="Gradle.NoteServiceTest.restoreCommentNoZero" />
-        <item itemvalue="Gradle.NoteServiceTest.restoreCommentShodThrowCommentNotFoundException" />
-        <item itemvalue="Gradle.NoteServiceTest.getCommentShodThrow" />
+        <item itemvalue="Gradle.ChatServiceTest" />
+        <item itemvalue="Gradle.ChatServiceTest.getUnreadChatsCountNoZero" />
+        <item itemvalue="Gradle.ChatServiceTest.getMassagesShouldNotThrowException" />
+        <item itemvalue="Gradle.ChatServiceTest.getChatNoZero" />
+        <item itemvalue="Gradle.ChatServiceTest.getDeletedChatNoZero" />
       </list>
     </recent_temporary>
   </component>
@@ -232,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655728955362</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Chat commit 2">
+      <created>1655888260606</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1655888260606</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,6 +258,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Chat commit 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chat commit 1" />
+    <MESSAGE value="Chat commit 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chat commit 2" />
   </component>
 </project>

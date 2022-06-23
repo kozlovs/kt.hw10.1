@@ -8,25 +8,36 @@ object ChatService {
     private var idChatGenerator = IdGenerator()
     private var idMassageGenerator = IdGenerator()
 
-    fun addChat(chat: Chat, massage: Massage): Chat {
-        chat.massages.add(massage)
-        chats += chat.copy(id = idChatGenerator.getId(), ownerId1 = massage.fromId, ownerId2 = massage.toId)
+    fun addChat(userId: Long, newChat: Chat, massage: Massage): Chat {
+        val usersChat = getUsersChats(userId)
+        for (chat in usersChat) {
+            if ((chat.ownerId1 == newChat.ownerId1 && chat.ownerId2 == newChat.ownerId1) ||
+                (chat.ownerId1 == newChat.ownerId2 && chat.ownerId2 == newChat.ownerId1)
+            ) {
+                chat.massages += massage.copy(id = idMassageGenerator.getId())
+                return chat
+            }
+        }
+        newChat.massages += massage.copy(id = idMassageGenerator.getId())
+        chats += newChat.copy(id = idChatGenerator.getId(), ownerId1 = massage.fromId, ownerId2 = massage.toId)
         return chats.last()
     }
 
-    fun addMassage(chatId: Long, massage: Massage): Massage {
-        for (chat in chats) {
-            if (chat.id == chatId && !chat.isDeleted) {
-                chat.massages.add(massage)
+    fun addMassage(userId: Long, chatId: Long, massage: Massage): Massage {
+        val usersChat = getChats(userId)
+        for (chat in usersChat) {
+            if (chat.id == chatId) {
+                chat.massages += massage.copy(id = idMassageGenerator.getId())
                 return chat.massages.last()
             }
         }
         throw ChatNotFoundException()
     }
 
-    fun deleteChat(chatId: Long): Boolean {
-        for (chat in ArrayList(chats)) {
-            if (chat.id == chatId && !chat.isDeleted) {
+    fun deleteChat(userId: Long, chatId: Long): Boolean {
+        val usersChat = getChats(userId)
+        for (chat in ArrayList(usersChat)) {
+            if (chat.id == chatId) {
                 if (chat.massages.isNotEmpty()) {
                     for (massage in ArrayList(chat.massages)) {
                         chat.massages.remove(massage)
@@ -39,13 +50,14 @@ object ChatService {
         throw ChatNotFoundException()
     }
 
-    fun deleteMassage(chatId: Long, massageId: Long): Boolean {
-        for (chat in chats) {
-            if (chat.id == chatId && !chat.isDeleted) {
+    fun deleteMassage(userId: Long, chatId: Long, massageId: Long): Boolean {
+        val usersChat = getChats(userId)
+        for (chat in usersChat) {
+            if (chat.id == chatId) {
                 for (massage in ArrayList(chat.massages)) {
                     if (massage.id == massageId) {
                         chat.massages.remove(massage)
-                        if (chat.massages.isEmpty()) deleteChat(chatId)
+                        if (chat.massages.isEmpty()) deleteChat(userId, chatId)
                         return true
                     }
                 }
@@ -55,9 +67,10 @@ object ChatService {
         throw ChatNotFoundException()
     }
 
-    fun editChat(chatId: Long, chat: Chat): Boolean {
-        for ((index, thisChat) in chats.withIndex()) {
-            if (thisChat.id == chatId && !thisChat.isDeleted) {
+    fun editChat(userId: Long, chatId: Long, chat: Chat): Boolean {
+        val usersChat = getChats(userId)
+        for ((index, thisChat) in usersChat.withIndex()) {
+            if (thisChat.id == chatId) {
                 chats[index] = chat.copy(
                     id = thisChat.id,
                     ownerId1 = thisChat.ownerId1,
@@ -70,9 +83,10 @@ object ChatService {
         throw ChatNotFoundException()
     }
 
-    fun editMassage(chatId: Long, massageId: Long, massage: Massage): Boolean {
-        for (chat in chats) {
-            if (chat.id == chatId && !chat.isDeleted) {
+    fun editMassage(userId: Long, chatId: Long, massageId: Long, massage: Massage): Boolean {
+        val usersChat = getChats(userId)
+        for (chat in usersChat) {
+            if (chat.id == chatId) {
                 for ((index, thisMassage) in chat.massages.withIndex()) {
                     if (thisMassage.id == massageId) {
                         chat.massages[index] = massage.copy(
@@ -92,33 +106,48 @@ object ChatService {
     }
 
     fun getChats(userId: Long): List<Chat> {
-        return chats.filter { !it.isDeleted && (it.ownerId1 == userId || it.ownerId2 == userId) }
-        // TODO: 21.06.2022 дописать
+        val result =
+            chats.filter { it.ownerId1 == userId || it.ownerId2 == userId }
+        if (result.isEmpty()) throw ChatNotFoundException()
+        return result
     }
 
-    fun getMassages(chatId: Long, lastMassageId: Long): MutableList<Massage> {
-        for (chat in chats) {
-            if (chat.id == chatId && !chat.isDeleted)
+    fun getUsersChats(userId: Long) =
+        chats.filter { (it.ownerId1 == userId || it.ownerId2 == userId) && it.massages.isNotEmpty() && !it.massages.last().isRead }
+
+    fun getMassages(userId: Long, chatId: Long, lastMassageId: Long, countOfMassages: Int): List<Massage> {
+        val usersChat = getChats(userId)
+        for (chat in usersChat) {
+            if (chat.id == chatId) {
                 for (massage in chat.massages) {
-                    if (!massage.isRead) massage.isRead = true
+                    if (massage.id == lastMassageId) {
+                        val firstIndex = chat.massages.indexOf(massage)
+                        val lastIndex =
+                            if ((firstIndex + countOfMassages - 1) > chat.massages.size) chat.massages.size else (firstIndex + countOfMassages - 1)
+                        val result = chat.massages.filterIndexed { index, _ -> index in firstIndex..lastIndex }
+                        result.forEach { it.isRead = true }
+                        return result
+                    }
                 }
-                return chat.massages
+                throw MassageNotFoundException()
+            }
         }
         throw ChatNotFoundException()
-        // TODO: 21.06.2022 дописать
     }
 
-    fun getById(chatId: Long): Chat {
-        for (chat in chats) {
-            if (chat.id == chatId && !chat.isDeleted)
+    fun getChatById(userId: Long, chatId: Long): Chat {
+        val usersChat = getChats(userId)
+        for (chat in usersChat) {
+            if (chat.id == chatId)
                 return chat
         }
         throw ChatNotFoundException()
     }
 
-    fun getMassageById(chatId: Long, massageId: Long): Massage {
-        for (chat in chats) {
-            if (chat.id == chatId && !chat.isDeleted) {
+    fun getMassageById(userId: Long, chatId: Long, massageId: Long): Massage {
+        val usersChat = getChats(userId)
+        for (chat in usersChat) {
+            if (chat.id == chatId) {
                 for (massage in chat.massages) {
                     if (massage.id == massageId)
                         return massage
@@ -129,22 +158,24 @@ object ChatService {
         throw ChatNotFoundException()
     }
 
-    fun restore(chatId: Long): Boolean {
-        for (chat in chats) {
-            if (chat.id == chatId && chat.isDeleted) {
-                chat.isDeleted = false
-                return true
+    fun getUnreadChatsCount(userId: Long): Int {
+        var resultCount = 0
+        val resultChats = chats.filter {
+            (it.ownerId1 == userId || it.ownerId2 == userId)
+        }
+        if (resultChats.isEmpty()) return 0
+
+        for (chat in resultChats) {
+            for (massage in chat.massages) {
+                if (!massage.isRead && massage.toId == userId) resultCount++
             }
         }
-        throw ChatNotFoundException()
+        return resultCount
     }
-
-    fun getUnreadChatsCount(userId: Long): Int {
-        val resultChats = chats.filter {
-            !it.isDeleted
-                    && (it.ownerId1 == userId || it.ownerId2 == userId)
-                    && !it.massages.last().isRead
-        }
-        return resultChats.size
+//      &&
+    fun clear() {
+        chats.clear()
+        idChatGenerator = IdGenerator()
+        idMassageGenerator = IdGenerator()
     }
 }
