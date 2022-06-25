@@ -2,39 +2,27 @@ package post
 
 import IdGenerator
 import comment.Comment
+import comment.CommentService
 import comment.ReportComment
 import exceptions.*
 
 object WallService {
     private var posts = emptyArray<Post>()
-    private var comments = emptyArray<Comment>()
     private var reports = emptyArray<ReportComment>()
     private var idGenerator = IdGenerator()
 
     fun createComment(postId: Long, comment: Comment): Comment {
-        for (post in posts) {
-            if (post.id == postId) {
-                comments += comment
-                return comments.last()
-            }
-        }
-        throw PostNotFoundException()
+        val post = posts.find { it.id == postId } ?: throw PostNotFoundException()
+        post.comments += comment.copy(id = CommentService.getId())
+        return post.comments.last()
     }
 
-    fun createReport(postId: Long, commentId: Long, report: ReportComment) : ReportComment {
+    fun createReport(postId: Long, commentId: Long, report: ReportComment): ReportComment {
         if (report.reason < 0 || report.reason > 6) throw UnknownReasonException()
-        for (post in posts) {
-            if (post.id == postId) {
-                for (comment in comments) {
-                    if (comment.id == commentId) {
-                        reports += report
-                        return reports.last()
-                    }
-                }
-                throw CommentNotFoundException()
-            }
-        }
-        throw PostNotFoundException()
+        val post = posts.find { it.id == postId } ?: throw PostNotFoundException()
+        val comment = post.comments.find { it.id == commentId } ?: throw CommentNotFoundException()
+        reports += report.copy(commentId = comment.id)
+        return reports.last()
     }
 
     fun add(post: Post): Post {
@@ -43,16 +31,8 @@ object WallService {
     }
 
     fun update(post: Post): Boolean {
-        for ((index, thisPost) in posts.withIndex()) {
-            if (thisPost.id == post.id) {
-                posts[index] = post.copy(
-                    id = thisPost.id,
-                    ownerId = thisPost.ownerId,
-                    date = thisPost.date
-                )
-                return true
-            }
-        }
-        return false
+        val thisPost = posts.find { it.id == post.id } ?: throw PostNotFoundException()
+        posts[posts.indexOf(thisPost)]= post.copy(id = thisPost.id, ownerId = thisPost.ownerId, date = thisPost.date)
+        return true
     }
 }

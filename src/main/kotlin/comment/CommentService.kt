@@ -1,10 +1,9 @@
 package comment
 
-object CommentService {
-    private var lastId = 0L
+import IdGenerator
 
-    fun getId(): Long {
-        lastId += 1
-        return lastId
-    }
+object CommentService {
+    private val idGenerator = IdGenerator()
+
+    fun getId() = idGenerator.getId()
 }

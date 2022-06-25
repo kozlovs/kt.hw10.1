@@ -17,15 +17,15 @@ class WallServiceTest {
     @Test
     fun updateExists() {
         val post = WallService.add(Post(0L, 0L, 0L, 0L, 0L, 0L))
-        val exists = WallService.update(post.copy(text = "another text"))
-        assertTrue(exists)
+        val newPost = post.copy(text = "another text")
+        val result = WallService.update(newPost)
+        assertTrue(result)
     }
 
-    @Test
-    fun updateNotExists() {
+    @Test(expected = PostNotFoundException::class)
+    fun updateShouldThrowPostNotFoundException() {
         val post = WallService.add(Post(0L, 0L, 0L, 0L, 0L, 0L))
-        val exists = WallService.update(post.copy(text = "another text", id = post.id + 1))
-        assertFalse(exists)
+        WallService.update(post.copy(text = "another text", id = post.id + 1))
     }
 
     @Test

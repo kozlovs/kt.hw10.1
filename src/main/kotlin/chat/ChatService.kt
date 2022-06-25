@@ -9,105 +9,67 @@ object ChatService {
     private var idMassageGenerator = IdGenerator()
 
     fun addChat(userId: Long, newChat: Chat, massage: Massage): Chat {
-        val usersChat = getUsersChats(userId)
-        for (chat in usersChat) {
-            if ((chat.ownerId1 == newChat.ownerId1 && chat.ownerId2 == newChat.ownerId1) ||
-                (chat.ownerId1 == newChat.ownerId2 && chat.ownerId2 == newChat.ownerId1)
-            ) {
-                chat.massages += massage.copy(id = idMassageGenerator.getId())
-                return chat
-            }
+        val chat = getUsersChats(userId).find {
+            (it.ownerId1 == newChat.ownerId1 && it.ownerId2 == newChat.ownerId1) ||
+                    (it.ownerId1 == newChat.ownerId2 && it.ownerId2 == newChat.ownerId1)
         }
-        newChat.massages += massage.copy(id = idMassageGenerator.getId())
-        chats += newChat.copy(id = idChatGenerator.getId(), ownerId1 = massage.fromId, ownerId2 = massage.toId)
-        return chats.last()
+        return if (chat != null) {
+            chat.massages += massage.copy(id = idMassageGenerator.getId())
+            chat
+        } else {
+            newChat.massages += massage.copy(id = idMassageGenerator.getId())
+            chats += newChat.copy(id = idChatGenerator.getId(), ownerId1 = massage.fromId, ownerId2 = massage.toId)
+            chats.last()
+        }
     }
 
     fun addMassage(userId: Long, chatId: Long, massage: Massage): Massage {
-        val usersChat = getChats(userId)
-        for (chat in usersChat) {
-            if (chat.id == chatId) {
-                chat.massages += massage.copy(id = idMassageGenerator.getId())
-                return chat.massages.last()
-            }
-        }
-        throw ChatNotFoundException()
+        val chat = getChats(userId).find { it.id == chatId } ?: throw ChatNotFoundException()
+        chat.massages += massage.copy(id = idMassageGenerator.getId())
+        return chat.massages.last()
     }
 
     fun deleteChat(userId: Long, chatId: Long): Boolean {
-        val usersChat = getChats(userId)
-        for (chat in ArrayList(usersChat)) {
-            if (chat.id == chatId) {
-                if (chat.massages.isNotEmpty()) {
-                    for (massage in ArrayList(chat.massages)) {
-                        chat.massages.remove(massage)
-                    }
-                }
-                chats.remove(chat)
-                return true
-            }
-        }
-        throw ChatNotFoundException()
+        val chat = getChats(userId).find { it.id == chatId } ?: throw ChatNotFoundException()
+        chat.massages.clear()
+        chats.remove(chat)
+        return true
     }
 
     fun deleteMassage(userId: Long, chatId: Long, massageId: Long): Boolean {
-        val usersChat = getChats(userId)
-        for (chat in usersChat) {
-            if (chat.id == chatId) {
-                for (massage in ArrayList(chat.massages)) {
-                    if (massage.id == massageId) {
-                        chat.massages.remove(massage)
-                        if (chat.massages.isEmpty()) deleteChat(userId, chatId)
-                        return true
-                    }
-                }
-                throw MassageNotFoundException()
-            }
-        }
-        throw ChatNotFoundException()
+        val chat = getChats(userId).find { it.id == chatId } ?: throw ChatNotFoundException()
+        val massage = chat.massages.find { it.id == massageId } ?: throw MassageNotFoundException()
+        chat.massages.remove(massage)
+        if (chat.massages.isEmpty()) deleteChat(userId, chatId)
+        return true
     }
 
     fun editChat(userId: Long, chatId: Long, chat: Chat): Boolean {
-        val usersChat = getChats(userId)
-        for ((index, thisChat) in usersChat.withIndex()) {
-            if (thisChat.id == chatId) {
-                chats[index] = chat.copy(
-                    id = thisChat.id,
-                    ownerId1 = thisChat.ownerId1,
-                    ownerId2 = thisChat.ownerId2,
-                    date = thisChat.date
-                )
-                return true
-            }
-        }
-        throw ChatNotFoundException()
+        val thisChat = getChats(userId).find { it.id == chatId } ?: throw ChatNotFoundException()
+        chats[chats.indexOf(thisChat)] = chat.copy(
+            id = thisChat.id,
+            ownerId1 = thisChat.ownerId1,
+            ownerId2 = thisChat.ownerId2,
+            date = thisChat.date
+        )
+        return true
     }
 
     fun editMassage(userId: Long, chatId: Long, massageId: Long, massage: Massage): Boolean {
-        val usersChat = getChats(userId)
-        for (chat in usersChat) {
-            if (chat.id == chatId) {
-                for ((index, thisMassage) in chat.massages.withIndex()) {
-                    if (thisMassage.id == massageId) {
-                        chat.massages[index] = massage.copy(
-                            id = thisMassage.id,
-                            fromId = thisMassage.fromId,
-                            toId = thisMassage.toId,
-                            isEdit = true,
-                            date = thisMassage.date
-                        )
-                        return true
-                    }
-                }
-                throw MassageNotFoundException()
-            }
-        }
-        throw ChatNotFoundException()
+        val chat = getChats(userId).find { it.id == chatId } ?: throw ChatNotFoundException()
+        val thisMassage = chat.massages.find { it.id == massageId } ?: throw MassageNotFoundException()
+        chat.massages[chat.massages.indexOf(thisMassage)] = massage.copy(
+            id = thisMassage.id,
+            fromId = thisMassage.fromId,
+            toId = thisMassage.toId,
+            isEdit = true,
+            date = thisMassage.date
+        )
+        return true
     }
 
     fun getChats(userId: Long): List<Chat> {
-        val result =
-            chats.filter { it.ownerId1 == userId || it.ownerId2 == userId }
+        val result = chats.filter { it.ownerId1 == userId || it.ownerId2 == userId }
         if (result.isEmpty()) throw ChatNotFoundException()
         return result
     }
@@ -116,63 +78,38 @@ object ChatService {
         chats.filter { (it.ownerId1 == userId || it.ownerId2 == userId) && it.massages.isNotEmpty() && !it.massages.last().isRead }
 
     fun getMassages(userId: Long, chatId: Long, lastMassageId: Long, countOfMassages: Int): List<Massage> {
-        val usersChat = getChats(userId)
-        for (chat in usersChat) {
-            if (chat.id == chatId) {
-                for (massage in chat.massages) {
-                    if (massage.id == lastMassageId) {
-                        val firstIndex = chat.massages.indexOf(massage)
-                        val lastIndex =
-                            if ((firstIndex + countOfMassages - 1) > chat.massages.size) chat.massages.size else (firstIndex + countOfMassages - 1)
-                        val result = chat.massages.filterIndexed { index, _ -> index in firstIndex..lastIndex }
-                        result.forEach { it.isRead = true }
-                        return result
-                    }
-                }
-                throw MassageNotFoundException()
-            }
-        }
-        throw ChatNotFoundException()
+        val chat = getChats(userId).find { it.id == chatId } ?: throw ChatNotFoundException()
+        val lastMassage = chat.massages.find { it.id == lastMassageId } ?: throw MassageNotFoundException()
+        val firstIndex = chat.massages.indexOf(lastMassage)
+        val lastIndex =
+            if ((firstIndex + countOfMassages - 1) > chat.massages.size) chat.massages.size else (firstIndex + countOfMassages - 1)
+        val result = chat.massages.filterIndexed { index, _ -> index in firstIndex..lastIndex }
+        result.forEach { it.isRead = true }
+        return result
     }
 
-    fun getChatById(userId: Long, chatId: Long): Chat {
-        val usersChat = getChats(userId)
-        for (chat in usersChat) {
-            if (chat.id == chatId)
-                return chat
-        }
-        throw ChatNotFoundException()
-    }
+    fun getChatById(userId: Long, chatId: Long) =
+        getChats(userId).find { it.id == chatId } ?: throw ChatNotFoundException()
 
     fun getMassageById(userId: Long, chatId: Long, massageId: Long): Massage {
-        val usersChat = getChats(userId)
-        for (chat in usersChat) {
-            if (chat.id == chatId) {
-                for (massage in chat.massages) {
-                    if (massage.id == massageId)
-                        return massage
-                }
-                throw MassageNotFoundException()
-            }
-        }
-        throw ChatNotFoundException()
+        val chat = getChats(userId).find { it.id == chatId } ?: throw ChatNotFoundException()
+        return chat.massages.find { it.id == massageId } ?: throw MassageNotFoundException()
     }
 
     fun getUnreadChatsCount(userId: Long): Int {
         var resultCount = 0
-        val resultChats = chats.filter {
-            (it.ownerId1 == userId || it.ownerId2 == userId)
-        }
-        if (resultChats.isEmpty()) return 0
-
-        for (chat in resultChats) {
-            for (massage in chat.massages) {
-                if (!massage.isRead && massage.toId == userId) resultCount++
+        chats.filter { (it.ownerId1 == userId || it.ownerId2 == userId) }
+            .forEach {
+                for (massage in it.massages) {
+                    if (!massage.isRead && massage.toId == userId) {
+                        resultCount++
+                        break
+                    }
+                }
             }
-        }
         return resultCount
     }
-//      &&
+
     fun clear() {
         chats.clear()
         idChatGenerator = IdGenerator()

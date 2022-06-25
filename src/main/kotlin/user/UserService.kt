@@ -13,43 +13,24 @@ object UserService {
     }
 
     fun delete(userId: Long): Boolean {
-        for (user in users) {
-            if (user.id == userId && !user.isDeleted) {
-                user.isDeleted = true
-                return true
-            }
-        }
-        throw UserNotFoundException()
+        val user = getById(userId)
+        user.isDeleted = true
+        return true
     }
 
     fun restore(userId: Long): Boolean {
-        for (user in users) {
-            if (user.id == userId && user.isDeleted) {
-                user.isDeleted = false
-                return true
-            }
-        }
-        throw UserNotFoundException()
+        val user = users.find { it.id == userId && it.isDeleted } ?: throw UserNotFoundException()
+        user.isDeleted = false
+        return true
     }
 
     fun get() = users
 
-    fun getById(userId: Long): User {
-        for (user in users) {
-            if (user.id == userId && !user.isDeleted)
-                return user
-        }
-        throw UserNotFoundException()
-    }
+    fun getById(userId: Long) = users.find { it.id == userId && !it.isDeleted } ?: throw UserNotFoundException()
 
     fun edit(userId: Long, user: User): Boolean {
-        for ((index, thisUser) in users.withIndex()) {
-            if (thisUser.id == userId && !thisUser.isDeleted) {
-                users[index] = user.copy(id = thisUser.id)
-                return true
-            }
-        }
-        throw UserNotFoundException()
+        val thisUser = getById(userId)
+        users[users.indexOf(thisUser)] = user.copy(id = thisUser.id)
+        return true
     }
 }
-

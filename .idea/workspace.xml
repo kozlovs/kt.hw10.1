@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54ad6df5-e093-4372-8b67-fcbebd65664e" name="Changes" comment="Chat commit 2">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/chat/ChatServiceTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/IdGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/IdGenerator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/Chat.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/Chat.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/ChatService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/ChatService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/chat/Massage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/chat/Massage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/comment/Comment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/comment/Comment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/comment/CommentService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/comment/CommentService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/note/NoteService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/note/NoteService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/post/WallService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/post/WallService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/user/UserService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/user/UserService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/note/NoteServiceTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/note/NoteServiceTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/post/WallServiceTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/post/WallServiceTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +121,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ChatServiceTest.getChatNoZero" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ChatServiceTest.editChatShouldNotThrowException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -130,7 +134,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;chat.ChatServiceTest.getChatNoZero&quot;" />
+            <option value="&quot;chat.ChatServiceTest.editChatShouldNotThrowException&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -140,7 +144,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ChatServiceTest.getDeletedChatNoZero" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="NoteServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -153,7 +157,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;chat.ChatServiceTest.getDeletedChatNoZero&quot;" />
+            <option value="&quot;note.NoteServiceTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -163,7 +167,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ChatServiceTest.getMassagesShouldNotThrowException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="NoteServiceTest.editNoteShouldNotThrow" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -176,7 +180,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;chat.ChatServiceTest.getMassagesShouldNotThrowException&quot;" />
+            <option value="&quot;note.NoteServiceTest.editNoteShouldNotThrow&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -186,36 +190,20 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ChatServiceTest.getUnreadChatsCountNoZero" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;chat.ChatServiceTest.getUnreadChatsCountNoZero&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
+    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainKt" />
+      <module name="chat_service_optimization.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ChatServiceTest" />
-        <item itemvalue="Gradle.ChatServiceTest.getUnreadChatsCountNoZero" />
-        <item itemvalue="Gradle.ChatServiceTest.getMassagesShouldNotThrowException" />
-        <item itemvalue="Gradle.ChatServiceTest.getChatNoZero" />
-        <item itemvalue="Gradle.ChatServiceTest.getDeletedChatNoZero" />
+        <item itemvalue="Gradle.NoteServiceTest" />
+        <item itemvalue="Gradle.ChatServiceTest.editChatShouldNotThrowException" />
+        <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Gradle.NoteServiceTest.editNoteShouldNotThrow" />
       </list>
     </recent_temporary>
   </component>

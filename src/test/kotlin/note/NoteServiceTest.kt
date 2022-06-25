@@ -88,8 +88,8 @@ class NoteServiceTest {
     fun editNoteShouldNotThrow() {
         val note = NoteService.add(Note(0L, "Title", "Text", 0, 0, "text", "text"))
         val newNote = note.copy(text = "New text")
-        val result = NoteService.edit(note.id, newNote)
-        assertTrue(result)
+        NoteService.edit(note.id, newNote)
+        assertTrue(newNote in NoteService.get())
     }
 
     @Test(expected = NoteNotFoundException::class)
@@ -105,8 +105,8 @@ class NoteServiceTest {
         val note = NoteService.add(Note(0L, "Title", "Text", 0, 0, "text", "text"))
         val comment = NoteService.createComment(note.id, Comment(0, note.id, 0, "some thread", 0, null))
         val newComment = comment.copy(text = "New text")
-        val result = NoteService.editComment(note.id, comment.id, newComment)
-        assertTrue(result)
+        NoteService.editComment(note.id, comment.id, newComment)
+        assertTrue(newComment in note.comments)
     }
 
     @Test(expected = NoteNotFoundException::class)
