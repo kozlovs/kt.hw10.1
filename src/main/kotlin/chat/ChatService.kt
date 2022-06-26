@@ -96,19 +96,9 @@ object ChatService {
         return chat.massages.find { it.id == massageId } ?: throw MassageNotFoundException()
     }
 
-    fun getUnreadChatsCount(userId: Long): Int {
-        var resultCount = 0
-        chats.filter { (it.ownerId1 == userId || it.ownerId2 == userId) }
-            .forEach {
-                for (massage in it.massages) {
-                    if (!massage.isRead && massage.toId == userId) {
-                        resultCount++
-                        break
-                    }
-                }
-            }
-        return resultCount
-    }
+    fun getUnreadChatsCount(userId: Long) = chats
+        .filter { (it.ownerId1 == userId || it.ownerId2 == userId) }
+        .count { chat -> chat.massages.any { !it.isRead && it.toId == userId } }
 
     fun clear() {
         chats.clear()
